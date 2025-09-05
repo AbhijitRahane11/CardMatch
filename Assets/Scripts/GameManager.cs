@@ -110,8 +110,16 @@ public class GameManager : MonoBehaviour
     }
     private void CalculateGrid(int totalCards, out int columns, out int rows)
     {
-        columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
-        rows = Mathf.CeilToInt((float)totalCards / columns);
+        //columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
+        //rows = Mathf.CeilToInt((float)totalCards / columns);
+        int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
+        columns = size;
+        rows = size;
+
+        if (columns * rows < totalCards)
+        {
+            rows += 1; // Add an extra row if needed
+        }
     }
 
     private void ApplyGridSettings(int columns, int rows)
@@ -142,13 +150,13 @@ public class GameManager : MonoBehaviour
         switch (diff)
         {
             case "Easy":
-                totalPairs = 4;
+                totalPairs = 3;
                 break;
             case "Medium":
                 totalPairs = 6;
                 break;
             case "Hard":
-                totalPairs = 12;
+                totalPairs = 8;
                 break;
             default:
                 totalPairs = 6;
@@ -244,7 +252,15 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         NextBtn.gameObject.SetActive(false);
-        totalPairs += 4;
+        //totalPairs += 4;
+        int totalCards = totalPairs * 2;
+
+        // Go to the next perfect square greater than current
+        int nextSize = Mathf.CeilToInt(Mathf.Sqrt(totalCards)) + 1;
+        int nextCardCount = nextSize * nextSize;
+
+        totalPairs = nextCardCount / 2; // each pair is 2 cards
+
         SetupGame(currentDifficulty);
     }
 
