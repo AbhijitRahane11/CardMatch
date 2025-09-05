@@ -87,8 +87,7 @@ public class GameManager : MonoBehaviour
     public void SetupGame(Difficulty diff)
     {
         currentDifficulty = diff;
-        //ApplyDifficultySettings(currentDifficulty.ToString());
-
+        
         ClearBoard();
         ResetGameState();
         UpdateUI();
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour
         {
             var obj = Instantiate(cardPrefab, cardParent);
             var card = obj.GetComponent<Card>();
-            //ScaleCards(columns, rows);
+        
             card.SetupCard(id, cardFaces[id], cardBack);
             cards.Add(card);
         }
@@ -184,8 +183,6 @@ public class GameManager : MonoBehaviour
 
     public void OnCardFlipped(Card card)
     {
-        //if (!canInteract || card.IsBusy)
-        //    return;
 
         if (firstCard == null)
             firstCard = card;
@@ -246,21 +243,11 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         NextBtn.gameObject.SetActive(false);
-        //ApplyDifficultySettings(currentDifficulty.ToString());
         totalPairs += 4;
         SetupGame(currentDifficulty);
     }
 
 
-    private void ScaleCards(int cols, int rows)
-    {
-        var rt = cardParent.GetComponent<RectTransform>();
-        float width = rt.rect.width / cols;
-        float height = rt.rect.height / rows;
-
-        foreach (RectTransform ct in cardParent)
-            ct.sizeDelta = new Vector2(width, height);
-    }
 
 
     void Shuffle(List<int> list)
