@@ -314,8 +314,8 @@ public class GameManager : MonoBehaviour
 
     void UpdateTimerUI() => timerText.text = $"{(int)(timer / 60):00}:{(int)(timer % 60):00}";
 
-    void UpdateScoreUI() => scoreText.text = $"Score: {score}";
-    void UpdateMovesUI() => movesText.text = $"Moves: {moves}";
+    void UpdateScoreUI() => scoreText.text = $"{score}";
+    void UpdateMovesUI() => movesText.text = $"{moves}";
 
 
     void UpdateUI()
