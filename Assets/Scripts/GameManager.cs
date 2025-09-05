@@ -138,10 +138,6 @@ public class GameManager : MonoBehaviour
 
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
     }
-<<<<<<< HEAD
-=======
-  
->>>>>>> 81c77148 (First Commit)
     public void ApplyDifficultySettings(string diff)
     {
         switch (diff)
@@ -256,7 +252,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-<<<<<<< HEAD
     private void ScaleCards(int cols, int rows)
     {
         var rt = cardParent.GetComponent<RectTransform>();
@@ -267,8 +262,7 @@ public class GameManager : MonoBehaviour
             ct.sizeDelta = new Vector2(width, height);
     }
 
-=======
->>>>>>> 81c77148 (First Commit)
+
     void Shuffle(List<int> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -332,13 +326,11 @@ public class GameManager : MonoBehaviour
     }
 
     void UpdateTimerUI() => timerText.text = $"{(int)(timer / 60):00}:{(int)(timer % 60):00}";
-<<<<<<< HEAD
+
     void UpdateScoreUI() => scoreText.text = $"Score: {score}";
     void UpdateMovesUI() => movesText.text = $"Moves: {moves}";
-=======
-    void UpdateScoreUI() => scoreText.text = $"{score}";
-    void UpdateMovesUI() => movesText.text = $"{moves}";
->>>>>>> 81c77148 (First Commit)
+
+
     void UpdateUI()
     {
         UpdateTimerUI();
