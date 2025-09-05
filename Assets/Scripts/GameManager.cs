@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //Next level Start
     public void NextLevel()
     {
         NextBtn.gameObject.SetActive(false);
@@ -298,8 +299,6 @@ public class GameManager : MonoBehaviour
         score = data.score;
         moves = data.moves;
         UpdateUI();
-
-
         return true;
     }
 
