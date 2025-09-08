@@ -146,6 +146,7 @@ public class GameManager : MonoBehaviour
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
 
         StartCoroutine("cardDisplay");
+
     }
 
     IEnumerator cardDisplay()
