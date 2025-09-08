@@ -142,7 +142,6 @@ public class GameManager : MonoBehaviour
         float cellHeight = availableHeight / rows;
 
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
-
         StartCoroutine("cardDisplay");
     }
 
@@ -151,13 +150,11 @@ public class GameManager : MonoBehaviour
         foreach (Card card in cards)
         {
             card.FlipCard();
-            //c.FlipCard();
         }
         yield return new WaitForSeconds(2);
         foreach (Card card in cards)
         {
             card.FlipCard();
-            //c.FlipCard();
         }
     }
     public void ApplyDifficultySettings(string diff)
