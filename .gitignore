@@ -35,6 +35,7 @@ UserSettings/
 .vs/
 Temp/
 .vs/
+.plastic
 
 # OS generated files
 .DS_Store
