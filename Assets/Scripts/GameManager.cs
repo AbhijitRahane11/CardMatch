@@ -110,8 +110,6 @@ public class GameManager : MonoBehaviour
     }
     private void CalculateGrid(int totalCards, out int columns, out int rows)
     {
-        //columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
-        //rows = Mathf.CeilToInt((float)totalCards / columns);
         int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
         columns = size;
         rows = size;
