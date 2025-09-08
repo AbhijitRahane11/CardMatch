@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public Button NextBtn,HomeBtn,ExitBtn;
+    public Button NextBtn, HomeBtn, ExitBtn;
 
 
     [Header("Game Object")]
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     public void SetupGame(Difficulty diff)
     {
         currentDifficulty = diff;
-        
+
         ClearBoard();
         ResetGameState();
         UpdateUI();
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         {
             var obj = Instantiate(cardPrefab, cardParent);
             var card = obj.GetComponent<Card>();
-        
+
             card.SetupCard(id, cardFaces[id], cardBack);
             cards.Add(card);
         }
@@ -110,8 +110,6 @@ public class GameManager : MonoBehaviour
     }
     private void CalculateGrid(int totalCards, out int columns, out int rows)
     {
-        //columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
-        //rows = Mathf.CeilToInt((float)totalCards / columns);
         int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
         columns = size;
         rows = size;
@@ -144,6 +142,20 @@ public class GameManager : MonoBehaviour
         float cellHeight = availableHeight / rows;
 
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
+        StartCoroutine("cardDisplay");
+    }
+
+    IEnumerator cardDisplay()
+    {
+        foreach (Card card in cards)
+        {
+            card.FlipCard();
+        }
+        yield return new WaitForSeconds(2);
+        foreach (Card card in cards)
+        {
+            card.FlipCard();
+        }
     }
     public void ApplyDifficultySettings(string diff)
     {
@@ -243,7 +255,7 @@ public class GameManager : MonoBehaviour
 
         SaveGame();
         Debug.Log($"Game Over! Final Score: {score}");
-        MessageShow($"Game Over! Final Score: { score}");
+        MessageShow($"Game Over! Final Score: {score}");
         NextBtn.gameObject.SetActive(true);
 
     }
@@ -349,7 +361,7 @@ public class GameManager : MonoBehaviour
 
     public void MessageShow(string txt)
     {
-       StartCoroutine(Show(txt));
+        StartCoroutine(Show(txt));
     }
     IEnumerator Show(string txt)
     {
@@ -360,6 +372,6 @@ public class GameManager : MonoBehaviour
     }
     public void ApplictionQuit()
     {
-        Application.Quit(); 
+        Application.Quit();
     }
 }
