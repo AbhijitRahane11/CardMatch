@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         int totalCards = ids.Count;
         int columns, rows;
         CalculateGrid(totalCards, out columns, out rows);
-        ApplyGridSettings(columns, rows);
+        //ApplyGridSettings(columns, rows);
 
         foreach (int id in ids)
         {
@@ -106,21 +106,17 @@ public class GameManager : MonoBehaviour
             card.SetupCard(id, cardFaces[id], cardBack);
             cards.Add(card);
         }
-        AdjustCardSize(columns, rows);
+        //AdjustCardSize(columns, rows);
+        //PositionCardsManually(columns, rows);
+        PositionCardsManually(columns, rows);
     }
     private void CalculateGrid(int totalCards, out int columns, out int rows)
     {
-        //columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
-        //rows = Mathf.CeilToInt((float)totalCards / columns);
         int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
         columns = size;
-        rows = size;
-
-        if (columns * rows < totalCards)
-        {
-            rows += 1; // Add an extra row if needed
-        }
+        rows = Mathf.CeilToInt((float)totalCards / columns);
     }
+
 
     private void ApplyGridSettings(int columns, int rows)
     {
@@ -144,23 +140,48 @@ public class GameManager : MonoBehaviour
         float cellHeight = availableHeight / rows;
 
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
-
+        gridLayoutGroup.GetComponent<GridLayoutGroup>().enabled=false;
         StartCoroutine("cardDisplay");
 
     }
+
+    private void PositionCardsManually(int columns, int rows)
+    {
+        RectTransform parentRect = cardParent.GetComponent<RectTransform>();
+        Vector2 parentSize = parentRect.rect.size;
+
+        float spacing = 10f; // adjust as needed
+        float cardWidth = (parentSize.x - spacing * (columns - 1)) / columns;
+        float cardHeight = (parentSize.y - spacing * (rows - 1)) / rows;
+
+        for (int i = 0; i < cards.Count; i++)
+        {
+            int row = i / columns;
+            int col = i % columns;
+
+            // Calculate card position
+            float x = -parentSize.x / 2 + cardWidth / 2 + col * (cardWidth + spacing);
+            float y = parentSize.y / 2 - cardHeight / 2 - row * (cardHeight + spacing);
+
+            RectTransform cardRect = cards[i].GetComponent<RectTransform>();
+            cardRect.SetParent(cardParent); // Ensure correct parent
+            cardRect.localPosition = new Vector3(x, y, 0);
+            cardRect.sizeDelta = new Vector2(cardWidth, cardHeight);
+        }
+        StartCoroutine("cardDisplay");
+    }
+
 
     IEnumerator cardDisplay()
     {
         foreach (Card card in cards)
         {
-            card.FlipCard();
-            //c.FlipCard();
+            card.FlipFront();
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         foreach (Card card in cards)
         {
-            card.FlipCard();
-            //c.FlipCard();
+            card.FlipBack();
         }
     }
     public void ApplyDifficultySettings(string diff)
@@ -233,8 +254,8 @@ public class GameManager : MonoBehaviour
             matchedPairs++;
             PlaySound(matchClip);
             score += 10;
-            Destroy(firstCard.gameObject);
-            Destroy(secondCard.gameObject);
+            firstCard.gameObject.SetActive(false);
+            secondCard.gameObject.SetActive(false);
         }
         else
         {
@@ -359,10 +380,10 @@ public class GameManager : MonoBehaviour
     {
         ClearBoard();
         ResetGameState();
-        UpdateUI();
+        //UpdateUI();
         CardPanel.SetActive(false);
         LevelSelector.SetActive(true);
-        StartGame();
+        //StartGame();
     }
 
     public void MessageShow(string txt)
