@@ -35,7 +35,8 @@ UserSettings/
 .vs/
 Temp/
 .vs/
-
+.plastic/
+.utmp
 # OS generated files
 .DS_Store
 Thumbs.db
