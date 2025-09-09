@@ -141,52 +141,19 @@ public class GameManager : MonoBehaviour
         rows = Mathf.CeilToInt((float)totalCards / columns);
     }
 
-    private void ApplyGridSettings(int columns, int rows)
-    {
-        gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        gridLayoutGroup.constraintCount = columns;
-    }
-
-    private void AdjustCardSize(int columns, int rows)
-    {
-        RectTransform parentRect = cardParent.GetComponent<RectTransform>();
-
-        float spacingX = gridLayoutGroup.spacing.x;
-        float spacingY = gridLayoutGroup.spacing.y;
-        float paddingX = gridLayoutGroup.padding.left + gridLayoutGroup.padding.right;
-        float paddingY = gridLayoutGroup.padding.top + gridLayoutGroup.padding.bottom;
-
-        float availableWidth = parentRect.rect.width - paddingX - spacingX * (columns - 1);
-        float availableHeight = parentRect.rect.height - paddingY - spacingY * (rows - 1);
-
-        float cellWidth = availableWidth / columns;
-        float cellHeight = availableHeight / rows;
-
-        gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
-        StartCoroutine("cardDisplay");
-
-    }
 
     IEnumerator cardDisplay()
     {
         foreach (Card card in cards)
         {
-<<<<<<< HEAD
             card.FlipFront();
-            //c.FlipCard();
-=======
-            card.FlipCard();
->>>>>>> 4fd3e96185624319ce4f6111469dbc5e69077956
+            //card.FlipCard();
         }
         yield return new WaitForSeconds(2);
         foreach (Card card in cards)
         {
-<<<<<<< HEAD
             card.FlipBack();
-            //c.FlipCard();
-=======
-            card.FlipCard();
->>>>>>> 4fd3e96185624319ce4f6111469dbc5e69077956
+            //card.FlipCard();
         }
     }
     public void ApplyDifficultySettings(string diff)
@@ -389,6 +356,7 @@ public class GameManager : MonoBehaviour
         CardPanel.SetActive(false);
         LevelSelector.SetActive(true);
         //StartGame();
+        NextBtn.gameObject.SetActive(false);
     }
 
     public void MessageShow(string txt)
