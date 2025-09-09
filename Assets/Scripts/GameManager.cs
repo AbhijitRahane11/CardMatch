@@ -106,45 +106,8 @@ public class GameManager : MonoBehaviour
             card.SetupCard(id, cardFaces[id], cardBack);
             cards.Add(card);
         }
-        //AdjustCardSize(columns, rows);
-        //PositionCardsManually(columns, rows);
         PositionCardsManually(columns, rows);
     }
-    private void CalculateGrid(int totalCards, out int columns, out int rows)
-    {
-        int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
-        columns = size;
-        rows = Mathf.CeilToInt((float)totalCards / columns);
-    }
-
-
-    private void ApplyGridSettings(int columns, int rows)
-    {
-        gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        gridLayoutGroup.constraintCount = columns;
-    }
-
-    private void AdjustCardSize(int columns, int rows)
-    {
-        RectTransform parentRect = cardParent.GetComponent<RectTransform>();
-
-        float spacingX = gridLayoutGroup.spacing.x;
-        float spacingY = gridLayoutGroup.spacing.y;
-        float paddingX = gridLayoutGroup.padding.left + gridLayoutGroup.padding.right;
-        float paddingY = gridLayoutGroup.padding.top + gridLayoutGroup.padding.bottom;
-
-        float availableWidth = parentRect.rect.width - paddingX - spacingX * (columns - 1);
-        float availableHeight = parentRect.rect.height - paddingY - spacingY * (rows - 1);
-
-        float cellWidth = availableWidth / columns;
-        float cellHeight = availableHeight / rows;
-
-        gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
-        gridLayoutGroup.GetComponent<GridLayoutGroup>().enabled=false;
-        StartCoroutine("cardDisplay");
-
-    }
-
     private void PositionCardsManually(int columns, int rows)
     {
         RectTransform parentRect = cardParent.GetComponent<RectTransform>();
@@ -171,17 +134,54 @@ public class GameManager : MonoBehaviour
         StartCoroutine("cardDisplay");
     }
 
+    private void CalculateGrid(int totalCards, out int columns, out int rows)
+    {
+        //columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
+        //rows = Mathf.CeilToInt((float)totalCards / columns);
+        int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
+        columns = size;
+        rows = Mathf.CeilToInt((float)totalCards / columns);
+    }
+
+    private void ApplyGridSettings(int columns, int rows)
+    {
+        gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        gridLayoutGroup.constraintCount = columns;
+    }
+
+    private void AdjustCardSize(int columns, int rows)
+    {
+        RectTransform parentRect = cardParent.GetComponent<RectTransform>();
+
+        float spacingX = gridLayoutGroup.spacing.x;
+        float spacingY = gridLayoutGroup.spacing.y;
+        float paddingX = gridLayoutGroup.padding.left + gridLayoutGroup.padding.right;
+        float paddingY = gridLayoutGroup.padding.top + gridLayoutGroup.padding.bottom;
+
+        float availableWidth = parentRect.rect.width - paddingX - spacingX * (columns - 1);
+        float availableHeight = parentRect.rect.height - paddingY - spacingY * (rows - 1);
+
+        float cellWidth = availableWidth / columns;
+        float cellHeight = availableHeight / rows;
+
+        gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
+
+        StartCoroutine("cardDisplay");
+
+    }
 
     IEnumerator cardDisplay()
     {
         foreach (Card card in cards)
         {
             card.FlipFront();
+            //c.FlipCard();
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         foreach (Card card in cards)
         {
             card.FlipBack();
+            //c.FlipCard();
         }
     }
     public void ApplyDifficultySettings(string diff)

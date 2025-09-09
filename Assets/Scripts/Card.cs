@@ -57,6 +57,7 @@ public class Card : MonoBehaviour
         }
     }
 
+
     public void FlipFront()
     {
         frontImageUI.transform.DORotate(new Vector3(0, 0, 0), flipDuration).From(new Vector3(0, 90, 0));
@@ -68,6 +69,8 @@ public class Card : MonoBehaviour
         backImageUI.transform.DORotate(new Vector3(0, 0, 0), flipDuration).From(new Vector3(0, 90, 0));
         frontImageUI.transform.DORotate(new Vector3(0, 90, 0), flipDuration).From(Vector3.zero);
     }
+
+
 
     public void SetMatched()
     {
