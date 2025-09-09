@@ -136,8 +136,6 @@ public class GameManager : MonoBehaviour
 
     private void CalculateGrid(int totalCards, out int columns, out int rows)
     {
-        //columns = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
-        //rows = Mathf.CeilToInt((float)totalCards / columns);
         int size = Mathf.CeilToInt(Mathf.Sqrt(totalCards));
         columns = size;
         rows = Mathf.CeilToInt((float)totalCards / columns);
@@ -165,7 +163,6 @@ public class GameManager : MonoBehaviour
         float cellHeight = availableHeight / rows;
 
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
-
         StartCoroutine("cardDisplay");
 
     }
@@ -174,14 +171,22 @@ public class GameManager : MonoBehaviour
     {
         foreach (Card card in cards)
         {
+<<<<<<< HEAD
             card.FlipFront();
             //c.FlipCard();
+=======
+            card.FlipCard();
+>>>>>>> 4fd3e96185624319ce4f6111469dbc5e69077956
         }
         yield return new WaitForSeconds(2);
         foreach (Card card in cards)
         {
+<<<<<<< HEAD
             card.FlipBack();
             //c.FlipCard();
+=======
+            card.FlipCard();
+>>>>>>> 4fd3e96185624319ce4f6111469dbc5e69077956
         }
     }
     public void ApplyDifficultySettings(string diff)
