@@ -263,14 +263,14 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         NextBtn.gameObject.SetActive(false);
-        //totalPairs += 4;
-        int totalCards = totalPairs * 2;
+        totalPairs += 1;
+        //int totalCards = totalPairs * 2;
 
-        // Go to the next perfect square greater than current
-        int nextSize = Mathf.CeilToInt(Mathf.Sqrt(totalCards)) + 1;
-        int nextCardCount = nextSize * nextSize;
+        //// Go to the next perfect square greater than current
+        //int nextSize = Mathf.CeilToInt(Mathf.Sqrt(totalCards)) + 1;
+        //int nextCardCount = nextSize * nextSize;
 
-        totalPairs = nextCardCount / 2; // each pair is 2 cards
+        //totalPairs = nextCardCount / 2; // each pair is 2 cards
 
         SetupGame(currentDifficulty);
     }
